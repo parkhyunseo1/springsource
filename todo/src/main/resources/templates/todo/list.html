@@ -11,7 +11,7 @@
     <h1>TODO</h1>
     <div class="container">
       <a class="btn btn-secondary" th:href="@{/todo/list(completed='true')}"
-        >완료   Todo</a
+        >완료 Todo</a
       >
       <table class="table">
         <thead>
@@ -45,7 +45,6 @@
                 id="completed"
                 name="completed"
                 th:checked="${dto.completed}"
-                readonly
                 th:value="${dto.id}"
               />
             </td>
@@ -53,7 +52,7 @@
         </tbody>
       </table>
     </div>
-    <form tH:action="@{update}" method="post" id="comForm">
+    <form th:action="@{update}" method="post" id="comForm">
       <input type="hidden" name="id" value="" />
       <input type="hidden" name="completed" value="" />
     </form>

@@ -14,7 +14,7 @@ public interface TodoService {
 
     List<TodoDto> getCompletedList();
 
-    Long updateCompleted(TodoDto id);
+    Long updateCompleted(TodoDto dto);
 
     void deleteRow(Long id);
 
@@ -28,6 +28,7 @@ public interface TodoService {
                 .build();
     }
 
+    // entity ==> dto
     public default TodoDto entityToDto(Todo entity) {
         return TodoDto.builder()
                 .id(entity.getId())
@@ -36,6 +37,4 @@ public interface TodoService {
                 .important(entity.getImportant())
                 .build();
     }
-
-    // entity ==> dto
 }

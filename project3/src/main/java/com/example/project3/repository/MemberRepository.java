@@ -12,7 +12,8 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
     // from 절에 Entity 이름(대소문자 구별) 써야 함
     @Query("SELECT m FROM Member m JOIN m.team t WHERE t.name = :name")
-    public List<Member> findByMemberEqualTeam(String name);
+    List<Member> findByMemberEqualTeam(String name);
 
     List<Member> findByTeam(Team team);
+
 }

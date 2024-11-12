@@ -28,7 +28,7 @@ public class Member {
     private String userName;
 
     // 관계
-    // 주인이 누구냐? @ManyToOne 를 설정한 entitiy가 주인임
+    // 주인이 누구냐? @ManyToOne 를 설정한 entity 가 주인임
     @ManyToOne(cascade = CascadeType.ALL)
     private Team team; // 외래키
 }

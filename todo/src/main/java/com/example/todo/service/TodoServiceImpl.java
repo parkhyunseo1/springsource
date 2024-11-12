@@ -37,10 +37,9 @@ public class TodoServiceImpl implements TodoService {
         // .map(todo -> entityToDto(todo))
         // .collect(Collectors.toList());
 
-        // 미완료 todos
+        // 미완료 todos / 완료 todos
         List<Todo> result = todoRepository.findByCompleted(completed);
         List<TodoDto> list = result.stream().map(todo -> entityToDto(todo)).collect(Collectors.toList());
-
         return list;
     }
 
@@ -60,7 +59,6 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<TodoDto> getCompletedList() {
         return null;
-
     }
 
     @Override

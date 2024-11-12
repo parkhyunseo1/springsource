@@ -28,6 +28,6 @@ public class LambdaEx3 {
         System.out.println("큰 수는 : " + result);
 
         Lambda5 obj2 = (x, y) -> x < y ? x : y;
-        System.out.println("작은 수는 : " + obj2.min(12, 10));
+        System.out.println("작은 수는 : " + obj2.min(15, 12));
     }
 }

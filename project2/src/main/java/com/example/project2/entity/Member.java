@@ -17,10 +17,9 @@ import lombok.NoArgsConstructor;
 
 // 회원 테이블
 // id, username, age
-// 회원가입일, 수정일이 필요,
-// 회원 - 관리자, 회원으로 구분됨
+// 회원가입일, 수정일이 필요, 
+// 회원 - 관리자,회원로 구분됨
 // 회원 이름은 필수로 입력 / 10자 내로 입력
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -39,9 +38,9 @@ public class Member {
     private RoleType roleType;
 
     @CreatedDate
-    private LocalDateTime cratedDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    private LocalDateTime lastModiftedDate;
+    private LocalDateTime lastModifiedDate;
 
 }

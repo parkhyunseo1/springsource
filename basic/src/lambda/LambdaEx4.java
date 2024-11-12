@@ -7,29 +7,28 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-// 함수형 인터페이스(@FuntionalInterface)
+// 함수형 인터페이스(@FunctionalInterface)
 
-// 메서드는 프로토타입이 거의 일정하기 때문에 자주 쓰이는 형식의 메소드를 가지고 있는 
+// 메서드는 프로토타입이 거의 일정하기 때문에 자주 쓰이는 형식의 메소드를 가지고 있는
 // 함수형 인터페이스 선언 가능 => java.util.function 패키지에 정의함
 
 public class LambdaEx4 {
     public static void main(String[] args) {
         Supplier<Integer> s = () -> (int) (Math.random() * 100) + 1;
-        System.out.println("1 ~ 100 사이의 임의의 수" + s.get());
+        System.out.println("1 ~ 100 사이의 임의의 수 " + s.get());
 
         // System.out.println(LocalDateTime.now());
-
         Supplier<LocalDateTime> s1 = () -> LocalDateTime.now();
         System.out.println(s1.get());
 
         Consumer<Integer> c = (i) -> System.out.println(i * i);
         c.accept(5);
 
-        // String => 화면출력
-        Consumer<String> c1 = str -> System.out.println(str);
+        // String => 화면 출력
+        Consumer<String> c1 = (str) -> System.out.println(str);
         c1.accept("안녕하세요");
 
-        // 오늘날짜/ 시간 출력
+        // 오늘날짜/시간 출력
         Consumer<LocalDateTime> c2 = (d) -> System.out.println(d);
         c2.accept(LocalDateTime.now());
 
@@ -37,7 +36,6 @@ public class LambdaEx4 {
         System.out.println(f1.apply(10));
 
         // 일의 자리 없앤 후 리턴
-
         f1 = (i) -> i / 10 * 10;
         System.out.println(f1.apply(561));
 
@@ -63,6 +61,7 @@ public class LambdaEx4 {
         function = (x, y) -> x > y ? x : y;
         System.out.println(function.apply(5, 3));
 
+        // 두 개의 String 을 받아서 연결 후 리턴
         BiFunction<String, String, String> function1 = (s3, s4) -> s3.concat(s4); // s3 + s4
         System.out.println(function1.apply("java8", "람다"));
     }

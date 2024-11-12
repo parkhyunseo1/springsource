@@ -1,6 +1,6 @@
 package com.example.mart.entity.item;
 
-import com.example.mart.entity.constant.DeliverStatus;
+import com.example.mart.entity.constant.DeliveryStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,17 +20,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = "order")
-@Setter
 @Getter
-@Entity
+@Setter
 @Table(name = "mart_delivery")
+@Entity
 public class Delivery extends BaseEntity {
 
     @SequenceGenerator(name = "mart_delivery_seq_gen", sequenceName = "mart_delivery_seq", allocationSize = 1)
-
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mart_delivery_seq_gen")
     @Id
     private Long id;
@@ -45,7 +44,7 @@ public class Delivery extends BaseEntity {
     private String zipcode;
 
     @Enumerated(EnumType.STRING)
-    private DeliverStatus deliverStatus;
+    private DeliveryStatus deliveryStatus;
 
     @OneToOne(mappedBy = "delivery")
     private Order order;

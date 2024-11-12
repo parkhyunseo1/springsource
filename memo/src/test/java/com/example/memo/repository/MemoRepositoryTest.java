@@ -2,6 +2,7 @@ package com.example.memo.repository;
 
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,44 +14,50 @@ import com.example.memo.entity.Memo;
 public class MemoRepositoryTest {
 
     @Autowired
-    private MemoRespository memoRespository;
+    private MemoRepository memoRepository;
 
     @Test
     public void testMemoInsert() {
 
-        IntStream.rangeClosed(1, 10).forEach(i -> {
+        LongStream.rangeClosed(1, 100).forEach(i -> {
             Memo memo = Memo.builder().memoText("memo text" + i).build();
-            memoRespository.save(memo);
+            memoRepository.save(memo);
         });
-
     }
 
     @Test
     public void testMemoRead() {
         // 6번 메모 가져오기
-        Memo memo = memoRespository.findById(6L).get();
+        Memo memo = memoRepository.findById(6L).get();
         System.out.println(memo);
 
         System.out.println();
+
         // 전체 메모 가져오기
-        List<Memo> list = memoRespository.findAll();
+        List<Memo> list = memoRepository.findAll();
         list.forEach(m -> System.out.println(m));
     }
 
     @Test
     public void testMemoUpdate() {
-        // 7번 메모 내용 수정
-
-        Memo memo = memoRespository.findById(37L).get();
-        memo.setMemoText("안녕하세요");
-        memoRespository.save(memo);
+        // 27번 메모 내용 수정
+        Memo memo = memoRepository.findById(27L).get();
+        memo.setMemoText("memo 수정");
+        memoRepository.save(memo);
     }
 
     @Test
     public void testMemoDelete() {
-        // 마지막 메모 삭제
+        // 메모 삭제
+        memoRepository.deleteById(30L);
+    }
 
-        memoRespository.deleteById(30L);
+    @Test
+    public void testMnoList() {
+        // memoRepository.findByMnoLessThan(30L).forEach(m -> System.out.println(m));
 
+        // memoRepository.findByMnoLessThanOrderByMnoDesc(30L).forEach(m ->
+        // System.out.println(m));
+        memoRepository.findByMnoBetween(30L, 60L).forEach(m -> System.out.println(m));
     }
 }

@@ -1,5 +1,6 @@
 package stream;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,17 +13,19 @@ import java.util.stream.Stream;
 import lambda.Student;
 
 // 스트림
-// 배열 => 스트림, 리스트 => 스트림 
-// 중간 연산 가능 : 필터링, 매핑, 그룹 
-// map() :  스트림 요소에 저장된 값 중에서 원하는 필드만 추출하거나 특정 형태로 변환하는 경우 사용
-// filter() :  조건과 일치하는 요소
-// peak() : 중간확인
+// 배열 => 스트림, 리스트 => 스트림
+// 중간 연산 가능 : 필터링, 매핑, 그룹
+// map() : 스트림 요소에 저장된 값 중에서 원하는 필드만 추출하거나 특정 형태로 변환하는 경우 사용
+// filter() : 조건과 일치하는 요소
+// peek() : 중간확인
 // distinct() : 중복제거
 // skip() : 건너뛸 개수
 // limit() : 스트림 요소를 개수 제한
 
 // 최종 연산 가능 : 합계, 평균, 개수, 최소, 최대
-// 특징 : 1회용
+// forEach(), collect()
+
+// 특징 : 일회용
 
 public class FromArrayEx1 {
     public static void main(String[] args) {
@@ -46,18 +49,19 @@ public class FromArrayEx1 {
         Path path = Paths.get("c:\\upload");
         try (Stream<Path> stream4 = Files.list(path)) {
             stream4.forEach(f -> System.out.println(f.getFileName()));
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         // 정수 범위(long)를 소스로 하는 스트림 생성
-        LongStream longStram = LongStream.rangeClosed(1, 10);
-        longStram.forEach(l -> System.out.println(l));
+        LongStream longStream = LongStream.rangeClosed(1, 10);
+        longStream.forEach(l -> System.out.println(l));
         // 정수 범위(int)를 소스로 하는 스트림 생성
         IntStream intStream = IntStream.rangeClosed(1, 10);
         intStream.forEach(i -> System.out.println(i));
 
         intStream = IntStream.range(1, 10);
         intStream.forEach(i -> System.out.println(i));
+
     }
 }

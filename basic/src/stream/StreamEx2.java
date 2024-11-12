@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,7 +20,7 @@ public class StreamEx2 {
             System.out.print(file.getName() + "\t");
         }
 
-        // 파일명 추출 리스트에 담기
+        // 파일명 추출 후 리스트에 담기
         List<String> fList = new ArrayList<>();
         for (File file : files) {
             fList.add(file.getName());
@@ -41,8 +40,8 @@ public class StreamEx2 {
         System.out.println(list);
 
         // stream.map(f -> f.getName())
-        // .collect(Collectors.toList()).forEach(name ->
-        // System.out.println(name));
+        // .collect(Collectors.toList())
+        // .forEach(name -> System.out.println(name));
 
         List<String> list2 = Arrays.asList("abc", "def", "melon", "text", "apple");
 

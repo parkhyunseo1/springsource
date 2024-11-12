@@ -3,6 +3,7 @@ package com.example.project2.repository;
 import java.time.LocalDateTime;
 import java.util.stream.IntStream;
 
+import org.antlr.v4.runtime.misc.IntSet;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +34,7 @@ public class MemberRepositoryTest {
                             .username("user" + i)
                             .age(20 + i)
                             .roleType(RoleType.USER)
-                            .cratedDate(LocalDateTime.now())
+                            .createdDate(LocalDateTime.now())
                             .build();
                     memberRepository.save(member);
                 });
@@ -48,7 +49,6 @@ public class MemberRepositoryTest {
     @Test
     public void selectAllTest() {
         memberRepository.findAll().forEach(member -> System.out.println(member));
-
     }
 
     @Test
@@ -59,11 +59,11 @@ public class MemberRepositoryTest {
         // .username("user8")
         // .age(28)
         // .roleType(RoleType.ADMIN)
-        // .lastModiftedDate(LocalDateTime.now())
+        // .lastModifiedDate(LocalDateTime.now())
         // .build();
         Member member = memberRepository.findById("user9").get();
         member.setRoleType(RoleType.ADMIN);
-        member.setLastModiftedDate(LocalDateTime.now());
+        member.setLastModifiedDate(LocalDateTime.now());
         memberRepository.save(member);
     }
 

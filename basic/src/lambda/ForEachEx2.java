@@ -11,18 +11,17 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class ForEachEx2 {
-
     public static void main(String[] args) {
         List<Student> list = Arrays.asList(new Student("홍길동", 90, 96),
                 new Student("김수정", 80, 85));
 
+        // 향상된 for
         for (Student student : list) {
-            System.out.println(student.getName() + ": " + student.getEng() + "," + student.getMath());
-
+            System.out.println(student.getName() + ": " + student.getEng() + ", " + student.getMath());
         }
 
         list.forEach((student) -> {
-            System.out.println(student.getName() + ": " + student.getEng() + "," + student.getMath());
+            System.out.println(student.getName() + ": " + student.getEng() + ", " + student.getMath());
         });
 
         Map<String, Integer> items = new HashMap<>();
@@ -36,12 +35,11 @@ public class ForEachEx2 {
 
         for (Map.Entry<String, Integer> entry : items.entrySet()) {
             System.out.println("Item : " + entry.getKey() + " Count : " + entry.getValue());
-
         }
 
         // List, Set, Map
         // List : 데이터 중복 가능, 차례대로 접근, => 향상된 for 가능
-        // Set : 데이터 중복 불가, 순서의 의미없음 => 향상된 for 가능
+        // Set : 데이터 중복 불가, 순서의 의미 없음 => 향상된 for 가능
         // Map : key 값만 중복 안됨(value 중복 가능)
 
         // 각 자료구조에 대한 접근하는 방법에 대한 통일성을 부여 ==> Iterator

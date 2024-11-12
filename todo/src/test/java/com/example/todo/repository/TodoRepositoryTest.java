@@ -16,15 +16,15 @@ public class TodoRepositoryTest {
 
     @Test
     public void insertTest() {
-        IntStream.rangeClosed(1, 10).forEach(i -> {
-            Todo todo = Todo.builder()
-                    .title("할 일" + i)
-                    .build();
+        IntStream.rangeClosed(1, 10)
+                .forEach(i -> {
+                    Todo todo = Todo.builder()
+                            .title("할 일" + i)
+                            .build();
 
-            // 새로 사입된 return
-            System.out.println(todoRepository.save(todo));
-
-        });
+                    // 새로 삽입된 return
+                    System.out.println(todoRepository.save(todo));
+                });
     }
 
     @Test
@@ -33,14 +33,14 @@ public class TodoRepositoryTest {
     }
 
     @Test
-    public void selectOneest() {
-        System.out.println(todoRepository.findById(5L).get());
+    public void selectOneTest() {
+        System.out.println(todoRepository.findById(3L).get());
     }
 
     @Test
     public void updateTest() {
         // completed, important 수정
-        Todo todo = todoRepository.findById(5L).get();
+        Todo todo = todoRepository.findById(3L).get();
         todo.setCompleted(true);
         todo.setImportant(true);
         todoRepository.save(todo);
@@ -48,15 +48,15 @@ public class TodoRepositoryTest {
 
     @Test
     public void deleteTest() {
-        todoRepository.deleteById(13L);
+        todoRepository.deleteById(10L);
     }
 
     @Test
     public void completedTest() {
-        // 완료된
+        // 완료된 todos
         todoRepository.findByCompleted(true).forEach(todo -> System.out.println(todo));
-        // 미완료
+        // 미완료 todos
         todoRepository.findByCompleted(false).forEach(todo -> System.out.println(todo));
-
     }
+
 }

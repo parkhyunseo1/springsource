@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 
 @SpringBootTest
 public class LockerRepositoryTest {
+
     @Autowired
     private SportsMemberRepository memberRepository;
 
@@ -66,10 +67,12 @@ public class LockerRepositoryTest {
 
     @Test
     public void testLockerRead() {
-        // 전체 locker 조회(+ 회원조회)
+
+        // 전체locker 조회(+ 회원조회)
         lockerRepository.findAll().forEach(locker -> {
             System.out.println(locker);
             System.out.println(locker.getSportsMember());
         });
     }
+
 }

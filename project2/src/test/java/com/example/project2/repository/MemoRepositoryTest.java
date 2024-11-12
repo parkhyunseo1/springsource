@@ -24,12 +24,10 @@ public class MemoRepositoryTest {
 
             Memo memo = Memo.builder().memoText("Memo Text...." + i).build();
             System.out.println(memoRepository.save(memo));
-
         });
-
     }
 
-    // R(read)
+    // R(Read)
     @Test
     public void selectOneTest() {
         Optional<Memo> result = memoRepository.findById(5L);
@@ -47,7 +45,7 @@ public class MemoRepositoryTest {
         }
     }
 
-    // U(update)
+    // U
     @Test
     public void updateTest() {
         Optional<Memo> result = memoRepository.findById(5L);
@@ -56,10 +54,9 @@ public class MemoRepositoryTest {
             memo.setMemoText("Update Title....");
             System.out.println(memoRepository.save(memo));
         });
-
     }
 
-    // U(update)
+    // D
     @Test
     public void deleteTest() {
         // Optional<Memo> result = memoRepository.findById(10L);
@@ -69,6 +66,5 @@ public class MemoRepositoryTest {
         // });
 
         memoRepository.deleteById(3L);
-
     }
 }

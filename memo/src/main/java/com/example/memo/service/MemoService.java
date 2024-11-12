@@ -17,6 +17,7 @@ public interface MemoService {
 
     void delete(Long id);
 
+    // dto ==> entity
     public default Memo dtoToEntity(MemoDto dto) {
         return Memo.builder()
                 .mno(dto.getMno())
@@ -24,8 +25,7 @@ public interface MemoService {
                 .build();
     }
 
-    // dto ==> entity
-    // entity==>dto
+    // entity ==> dto
     public default MemoDto entityToDto(Memo memo) {
         return MemoDto.builder()
                 .mno(memo.getMno())

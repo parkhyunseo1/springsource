@@ -6,6 +6,7 @@ import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.core.Local;
 
 import com.example.project2.entity.Item;
 import com.example.project2.entity.constant.ItemStatus;
@@ -21,14 +22,13 @@ public class ItemRepositoryTest {
         IntStream.rangeClosed(1, 10)
                 .forEach(i -> {
                     Item item = Item.builder()
-                            .itemNM("운동화" + i)
+                            .itemNm("운동화" + i)
                             .price(95000)
                             .stockNumber(15)
                             .itemSellStatus(ItemStatus.SELL)
                             .regTime(LocalDateTime.now())
                             .build();
                     itemRepository.save(item);
-
                 });
     }
 
@@ -46,17 +46,18 @@ public class ItemRepositoryTest {
 
     @Test
     public void updateTest() {
-        // id가 6인 운동화 업데이트
+        // id 가 6 인 운동화 업데이트
         // 가격, updateTime
         Item item = itemRepository.findById(6L).get();
-        item.setPrice(13000);
+        item.setPrice(105000);
         item.setUpdateTime(LocalDateTime.now());
         itemRepository.save(item);
     }
 
     @Test
     public void deleteTest() {
-        // id가 9인 운동화 삭제
+        // id 가 9 인 운동화 삭제
         itemRepository.deleteById(9L);
     }
+
 }

@@ -7,8 +7,6 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.example.mart.entity.constant.OrderStatus;
-import com.example.mart.entity.item.Member;
-import com.example.mart.entity.item.OrderItem;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,14 +29,14 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = { "member", "orderItemList", "delivery" })
+@NoArgsConstructor
+@ToString(exclude = { "member", "orderItemsList", "delivery" })
 @Setter
 @Getter
+@SequenceGenerator(name = "mart_order_seq_gen", sequenceName = "mart_order_seq", allocationSize = 1)
 @Table(name = "mart_orders")
 @Entity
-@SequenceGenerator(name = "mart_orders_seq_gen", sequenceName = "mart_order_seq", allocationSize = 1)
 public class Order extends BaseEntity {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mart_order_seq_gen")
@@ -61,11 +59,10 @@ public class Order extends BaseEntity {
     // OrderItem ==> Order 접근하는 관계는 OrderItem 쪽에 설정
     // 왜? 외래키 있는 쪽에 관계 설정해야 함
 
-    // Order ==> OrderItem 접근 하기
+    // Order ==> OrderItem 접근하기
     // order.getOrderItem()
     // , fetch = FetchType.EAGER
     @Builder.Default
     @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItemList = new ArrayList<>();
-
+    private List<OrderItem> orderItemsList = new ArrayList<>();
 }

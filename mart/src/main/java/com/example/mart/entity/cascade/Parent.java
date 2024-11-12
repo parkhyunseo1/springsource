@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,16 +20,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString(exclude = "childs")
-@Setter
 @Getter
+@Setter
 @Entity
 public class Parent {
 
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parent_seq_gen")
     @SequenceGenerator(name = "parent_seq_gen", sequenceName = "parent_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "parent_seq_gen")
     @Id
     private Long id;
 
@@ -37,7 +38,7 @@ public class Parent {
 
     // 양방향
 
-    // cascade = CascadeType.PERSIST : 영속 상태 전이
+    // CascadeType.PERSIST : 영속 상태 전이
     // CascadeType.MERGE : 병합
     // CascadeType.REMOVE : 삭제
     // CascadeType.ALL : 전체

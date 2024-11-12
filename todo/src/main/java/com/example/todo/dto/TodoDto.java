@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TodoDto {
-
     private Long id;
 
     private Boolean completed;

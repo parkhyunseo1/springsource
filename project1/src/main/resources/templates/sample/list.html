@@ -5,7 +5,7 @@
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layouts/layout}"
 >
-  <th:block layout::fragment="css">
+  <th:block layout:fragment="css">
     <style>
       h1 {
         color: red;
@@ -17,5 +17,5 @@
     <h1>Main content 영역</h1>
   </div>
 
-  <th:block laoyout:fragment="script"></th:block>
+  <th:block layout:fragment="script"> </th:block>
 </html>

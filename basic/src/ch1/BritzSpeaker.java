@@ -4,7 +4,7 @@ public class BritzSpeaker implements Speaker {
 
     @Override
     public void volumeUp() {
-        System.out.println("BritzSpeaker volumUp");
+        System.out.println("BritzSpeaker volumeUp");
     }
 
     @Override

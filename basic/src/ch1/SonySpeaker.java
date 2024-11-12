@@ -4,7 +4,7 @@ public class SonySpeaker implements Speaker {
 
     @Override
     public void volumeUp() {
-        System.out.println("SonySpeaker volumUp");
+        System.out.println("SonySpeaker volumeUp");
     }
 
     @Override

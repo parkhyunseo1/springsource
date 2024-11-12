@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.todo.dto.TodoDto;
 import com.example.todo.service.TodoService;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -44,7 +44,6 @@ public class TodoController {
     @GetMapping("/create")
     public void getCreateForm() {
         log.info("todo 입력 폼 요청");
-
     }
 
     @PostMapping("/create")
@@ -54,24 +53,22 @@ public class TodoController {
         todoService.create(dto);
 
         return "redirect:/todo/list";
-
     }
 
     @PostMapping("/update")
     public String postUpdate(TodoDto dto, RedirectAttributes rttr) {
-        log.info("todo 입력 요청 {}", dto);
+        log.info("todo 수정 요청 {}", dto);
 
         todoService.updateCompleted(dto);
 
         rttr.addAttribute("id", dto.getId());
 
         return "redirect:/todo/read";
-
     }
 
     @PostMapping("/delete")
     public String postDelete(@RequestParam Long id) {
-        log.info("todo 삭제 요청 {}", id);
+        log.info("todo 삭제 요청  {}", id);
 
         todoService.deleteRow(id);
 

@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@ToString(exclude = "members")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString(exclude = "members")
 @Entity
 public class Team {
 
@@ -29,7 +29,7 @@ public class Team {
 
     private String name;
 
-    // left join 을 하지 않음 => member 정보없음
+    // left join 을 하지 않음 => member 정보 없음
     // , fetch = FetchType.EAGER
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @Builder.Default

@@ -1,4 +1,4 @@
-package com.example.memo.repository;
+package com.example.memo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

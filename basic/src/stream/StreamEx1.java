@@ -12,13 +12,13 @@ public class StreamEx1 {
 
         // 배열 정렬
         // System.out.println("정렬 전 " + Arrays.toString(strArr));
-        // Arrays.sort(strArr); // 원본 자체가 정렬됨
+        // Arrays.sort(strArr); // 원본 자체가 정렬 됨
         // System.out.println("정렬 후 " + Arrays.toString(strArr));
 
-        // // 컬렉션(List,Set) 정렬
-        // System.out.println("정렬 전" + strList);
+        // 컬렉션(List,Set) 정렬
+        // System.out.println("정렬 전 " + strList);
         // Collections.sort(strList); // 원본 자체가 정렬 됨
-        // System.out.println("정렬 후" + strList);
+        // System.out.println("정렬 후 " + strList);
 
         // 원본이 아닌 복사본 정렬 => 스트림 처리
         Stream<String> stream1 = Arrays.stream(strArr);

@@ -39,5 +39,4 @@ public class Student {
     public String toString() {
         return "Student [name=" + name + ", math=" + math + ", eng=" + eng + "]";
     }
-
 }

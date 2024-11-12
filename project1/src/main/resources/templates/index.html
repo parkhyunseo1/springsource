@@ -12,10 +12,10 @@
     />
   </head>
   <body>
-    <!-- 
-    thymeleaf
-    
-    th:text="${}"
+    <!--
+      thymeleaf
+
+      th:text="${}"
 
     -->
     <h3 th:text="${now}"></h3>
@@ -27,7 +27,6 @@
       <h3 th:text="${#numbers.formatInteger(priceValue,3,'COMMA')}"></h3>
       <h3 th:text="${#numbers.formatDecimal(priceValue,5,10,'POINT')}"></h3>
     </div>
-
     <h3 th:text="${options}"></h3>
     <h3 th:text="${title}"></h3>
     <ul>
@@ -40,20 +39,24 @@
     <ul>
       <li th:text="${login.userid}"></li>
       <li th:text="${login.password}"></li>
+    </ul>
+    <ul>
       <li>아이디 : [[${login.userid}]]</li>
       <li>비밀번호 : [[${login.password}]]</li>
     </ul>
-    <!-- 디자인 부여, 스크립트 부여 시 편함 -->
+    <!-- 디자인 부여, 스크립트 부여 시 편함-->
     <ul>
       <li>아이디 : <span th:text="${login?.userid}"></span></li>
       <li>비밀번호 : <span th:text="${login?.password}"></span></li>
     </ul>
+
     <ul>
       <li>ID : [[${sampleDto.id}]]</li>
-      <li>FIRST : [[${sampleDto.first}]]</li>
-      <li>LAST : [[${sampleDto.last}]]</li>
+      <li>FIRST : <span th:text="${sampleDto.first}"></span></li>
+      <li>LAST : <span th:text="${sampleDto.last}"></span></li>
       <li>LOCALDATETIME : [[${sampleDto.regDateTime}]]</li>
     </ul>
+
     <ul>
       <li th:each="dto : ${list}" th:text="${dto}"></li>
     </ul>
@@ -107,7 +110,6 @@
     <h3>th:each 사용할 수 있는 state</h3>
     <table class="table">
       <thead>
-        <tr></tr>
         <tr>
           <th scope="col">index</th>
           <th scope="col">count</th>
@@ -120,7 +122,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="dto,state : ${list}">
+        <tr th:each="dto, state : ${list}">
           <th scope="row">[[${state.index}]]</th>
           <th scope="row">[[${state.count}]]</th>
           <th scope="row">[[${state.size}]]</th>
@@ -145,21 +147,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="dto : ${list}" th:if="${dto.id % 5 ==0}">
-          <th scope="row">[[${dto.id}]]</th>
-          <td>[[${dto.first}]]</td>
-          <td>[[${dto.last}]]</td>
-          <td>
-            [[${#temporals.format(dto.regDateTime, 'yyyy-MM-dd hh:mm:ss')}]]
-          </td>
+        <tr th:each="dto : ${list}" th:if="${dto.id % 5 == 0}">
+          <th scope="row" th:text="${dto.id}"></th>
+          <td th:text="${dto.first}"></td>
+          <td th:text="${dto.last}"></td>
+          <td
+            th:text="${#temporals.format(dto.regDateTime, 'yyyy-MM-dd hh:mm:ss')}"
+          ></td>
         </tr>
       </tbody>
     </table>
-    <h3>th:if ~ th:unlss(if 앞에 NOT)</h3>
+    <h3>th:if / th:unlss(if 앞에 NOT)</h3>
     <ul>
       <li th:each="dto,state : ${list}">
         <span
-          th:text="${'------------------'+dto.id}"
+          th:text="${'-----------------'+dto.id}"
           th:if="${dto.id % 5 == 0}"
         ></span>
         <span th:text="${dto.first}" th:unless="${dto.id % 5 == 0}"></span>
@@ -187,5 +189,6 @@
         <a th:href="@{/sample/ex2(param1='data1',param2='data2')}">ex2</a>
       </li>
     </ul>
+    <a href="/sample/ex2?id=1"></a>
   </body>
 </html>

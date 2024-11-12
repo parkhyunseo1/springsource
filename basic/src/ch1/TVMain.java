@@ -21,7 +21,7 @@ public class TVMain {
 
         TV tv = new SamsungTV();
 
-        // ((SamsungTV) tv).setBritzSpeaker(new BritzSpeaker());
+        // ((SamsungTV) tv).setBritzSpeaker(new SonySpeaker());
 
         tv = new LgTV();
         ((LgTV) tv).setSpeaker(new BritzSpeaker());
