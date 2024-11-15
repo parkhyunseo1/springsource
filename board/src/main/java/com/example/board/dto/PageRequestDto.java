@@ -10,13 +10,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-// http://localhost:8080/book/list?page=2&size=20&type=c&keyword=소년
+//  http://localhost:8080/book/list?page=2&size=20&type=c&keyword=소년
 
 @ToString
 @Builder
 @AllArgsConstructor
-@Getter
 @Setter
+@Getter
 public class PageRequestDto {
     private int page;
     private int size;
@@ -28,7 +28,6 @@ public class PageRequestDto {
     public PageRequestDto() {
         this.page = 1;
         this.size = 10;
-
     }
 
     public Pageable getPageable(Sort sort) {

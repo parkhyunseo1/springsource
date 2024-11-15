@@ -21,15 +21,19 @@ public class PageResultDto<DTO, EN> {
 
     // 총 페이지 번호
     private int totalPage;
+
     // 현재 페이지 번호
     private int page;
+
     // 목록 사이즈
     private int size;
 
     // 시작 페이지, 끝 페이지 번호
     private int start, end;
+
     // 이전, 다음 여부
     private boolean prev, next;
+
     // 화면에 보여줄 페이지 번호 목록
     private List<Integer> pageList;
 
@@ -57,8 +61,10 @@ public class PageResultDto<DTO, EN> {
         this.end = totalPage > tempEnd ? tempEnd : totalPage;
         this.next = totalPage > tempEnd;
 
+        // IntStream.rangeClosed(start, end) : int
+
         pageList = IntStream.rangeClosed(start, end)
-                .boxed()
+                .boxed() // int ==> Integer
                 .collect(Collectors.toList());
     }
 }
