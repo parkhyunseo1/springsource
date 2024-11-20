@@ -55,10 +55,10 @@ public class GuestBookServiceImpl implements GuestBookService {
 
     @Override
     public Long update(GuestBookDto dto) {
-        GuestBook book = guestBookRepository.findById(dto.getGno()).get();
-        book.setTitle(dto.getTitle());
-        book.setContent(dto.getContent());
-        return guestBookRepository.save(book).getGno();
+            GuestBook book = guestBookRepository.findById(dto.getGno()).get();
+            book.setTitle(dto.getTitle());
+            book.setContent(dto.getContent());
+            return guestBookRepository.save(book).getGno();
     }
 
     @Override

@@ -152,4 +152,19 @@ public class BoardRepositoryTest {
         boardRepository.deleteById(206L);
     }
 
+    @Test
+    public void testReplyRemove2() {
+        boardRepository.deleteById(205L);
+
+    }
+
+    @Test
+    public void testReplyList() {
+        Board board = Board.builder().bno(220L).build();
+        List<Reply> list = replyRepository.findByBoardOrderByRno(board);
+
+        list.forEach(b -> System.out.println(b));
+
+    }
+
 }

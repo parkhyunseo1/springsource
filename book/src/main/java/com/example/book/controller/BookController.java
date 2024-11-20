@@ -88,7 +88,7 @@ public class BookController {
     }
 
     @GetMapping("/create")
-    public void getCreate(@ModelAttribute("dto") BookDto dto, Model model) {
+    public void getCreate(@ModelAttribute("dto") BookDto dto, Model model, PageRequestDto requestDto) {
         log.info("도서 입력 폼 요청");
 
         List<CategoryDto> categories = bookService.getCateList();

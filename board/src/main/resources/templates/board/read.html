@@ -3,7 +3,7 @@
   <div layout:fragment="content">
     <h2>Board List</h2>
     <div class="mb-3">
-      <label for="bno">Gno</label>
+      <label for="bno">Bno</label>
       <input
         type="text"
         name="bno"
@@ -67,5 +67,52 @@
       class="btn btn-info"
       >List</a
     >
+
+    <!-- 댓글 영역 -->
+    <div class="row mt-4">
+        <h5 class="my-4  border-bottom">
+          <i class="fa-regular fa-comment"></i>
+          <span class="d-inline-block mx-2"></span> 개의 댓글
+        </h5>
+      
+      <div class="list-group reply-list">
+        <!-- <div
+          class="d-flex justify-content-between my-2 border-bottom reply-row"
+          data-rno=""
+        >
+          <div class="p-3">
+            <img src="" alt="" class="rounded-circle mx-auto d-block" />
+          </div>
+          <div class="flex-grow-1 align-slef-center">
+            <span>
+             
+            </span>
+            <div>
+              <span class="fs-5">
+               
+              </span>
+            </div>
+            <div class="text-muted">
+              <span class="small">
+                
+              </span>
+            </div>
+          </div>
+       
+        <div class="d-flex flex-column align-self-center">
+          <div class="mb-2">
+            <button class="btn btn-outling-danger btn-sm">삭제</button>
+          </div>
+      </div>
+          <div class="mb-2">
+            <button class="btn btn-outling-success btn-sm">수정</button>
+    </div>
   </div>
+  </div> -->
+  <th:block layout:fragment="script">
+    <script>
+      const bno = "[[${dto.bno}]]";
+    </script>
+    <script th:src="@{/js/read.js}"></script>
+  </th:block>
 </html>

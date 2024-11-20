@@ -18,7 +18,7 @@ import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = "board")
 @Setter
 @Builder
 @Getter
