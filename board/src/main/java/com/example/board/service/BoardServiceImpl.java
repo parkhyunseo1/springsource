@@ -13,7 +13,9 @@ import com.example.board.dto.PageResultDto;
 import com.example.board.entity.Board;
 import com.example.board.entity.Member;
 import com.example.board.repository.BoardRepository;
+import com.example.board.repository.ReplyRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -23,11 +25,11 @@ import lombok.extern.log4j.Log4j2;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
+    private final ReplyRepository replyRepository;
 
     @Override
     public Long register(BoardDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'register'");
+        return boardRepository.save(dtoToEntity(dto)).getBno();
     }
 
     @Override
@@ -51,18 +53,22 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Long update(BoardDto dto) {
-        // Board board = boardRepository.findById(dto.getBno()).get();
-        // board.setTitle(dto.getTitle());
-        // board.setContent(dto.getContent());
-        // return boardRepository.save(board).getBno();
-        // 무난한 방법
+        //
+        Board board = boardRepository.findById(dto.getBno()).get();
+
+        board.setTitle(dto.getTitle());
+        board.setContent(dto.getContent());
         return boardRepository.save(dtoToEntity(dto)).getBno();
-        // 화면에서 writerEmail 을 넣어주면 이방법 가능
+
+        // 화면에서 writerEmail 을 넣어주면 이 방법 가능
+        // return boardRepository.save(dtoToEntity(dto)).getBno();
     }
 
+    @Transactional
     @Override
     public void remove(Long bno) {
 
+        replyRepository.deleteByBno(bno);
         boardRepository.deleteById(bno);
     }
 

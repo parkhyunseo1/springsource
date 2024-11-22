@@ -5,7 +5,7 @@ import com.example.board.entity.Member;
 
 public interface BoardUserService {
     // 회원가입
-    String register(MemberDto mDto);
+    String register(MemberDto mDto) throws IllegalStateException;
 
     // dto=> entity
     default MemberDto entityToDto(Member member) {

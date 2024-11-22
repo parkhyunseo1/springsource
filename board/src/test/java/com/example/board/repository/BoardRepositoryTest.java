@@ -74,7 +74,7 @@ public class BoardRepositoryTest {
 
             Reply reply = Reply.builder()
                     .text("reply...." + i)
-                    .replyer("guest" + i)
+                    .replyer(null)
                     .board(board)
                     .build();
             replyRepository.save(reply);

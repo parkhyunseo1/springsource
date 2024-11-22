@@ -26,9 +26,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/img/*", "/js/*", "/css/*", "/assets/*").permitAll()
+                        .requestMatchers("/board/modify").hasAnyRole("MEMBER", "ADMIN")
                         .anyRequest().permitAll());
 
         http.formLogin(login -> login.loginPage("/member/login").permitAll());
+
+        http.logout(logout -> logout.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                .logoutSuccessUrl("/"));
         return http.build();
     }
 
