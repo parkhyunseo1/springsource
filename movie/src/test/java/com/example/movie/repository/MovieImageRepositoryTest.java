@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.MovieImage;
-import com.example.movie.repository.total.MovieImageReviewRepositoryImpl;
 
 @SpringBootTest
 public class MovieImageRepositoryTest {
@@ -51,6 +50,6 @@ public class MovieImageRepositoryTest {
         for (Object[] objects : result) {
             System.out.println(Arrays.toString(objects));
         }
-
     }
+
 }

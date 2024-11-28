@@ -23,8 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @Setter
-// @ToString(exclude = { "movieImages", "reviews"
-// })
+@ToString(exclude = { "movieImages", "reviews" })
 @Entity
 public class Movie extends BaseEntity {
 
