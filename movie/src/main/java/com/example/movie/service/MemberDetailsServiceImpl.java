@@ -13,7 +13,9 @@ import com.example.movie.dto.AuthMemberDto;
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.PasswordDto;
 import com.example.movie.entity.Member;
+import com.example.movie.entity.constant.MemberRole;
 import com.example.movie.repository.MemberRepository;
+import com.example.movie.repository.ReviewRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +27,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService, MemberServi
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ReviewRepository reviewRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -63,17 +66,41 @@ public class MemberDetailsServiceImpl implements UserDetailsService, MemberServi
         // Optional<Member> result =
         // memberRepository.findByEmail(passwordDto.getEamil());
         // if (!result.isPresent()) throw new UsernameNotFoundException("이메일 확인");
-        Member member = memberRepository.findByEmail(passwordDto.getEamil()).get();
+        Member member = memberRepository.findByEmail(passwordDto.getEmail()).get();
         // // 현재 비밀번호가 입력 비밀번호와 일치하는지 검증
         if (!passwordEncoder.matches(passwordDto.getCurrentPassword(), member.getPassword())) {
             // false : 되돌려 보내기
             throw new Exception("현재 비밀번호를 확인");
-
         } else {
             member.setPassword(passwordEncoder.encode(passwordDto.getNewPassword()));
             memberRepository.save(member);
             // true : 새 비밀번호로 수정
         }
+
+    }
+
+    @Transactional
+    @Override
+    public void leave(PasswordDto passwordDto) throws Exception {
+
+        Member member = memberRepository.findByEmail(passwordDto.getEmail()).get();
+
+        if (!passwordEncoder.matches(passwordDto.getCurrentPassword(), member.getPassword())) {
+            // false : 되돌려 보내기
+            throw new Exception("현재 비밀번호를 확인");
+        }
+        // 리뷰삭제(리뷰를 작성한 멤버를 이용해서 삭제)
+        reviewRepository.deleteByMember(member);
+        // 회원삭제
+        memberRepository.deleteById(member.getMid());
+    }
+
+    @Override
+    public String register(MemberDto memberDto) {
+        Member member = dtoToEntity(memberDto);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+
+        return memberRepository.save(member).getNickname();
 
     }
 

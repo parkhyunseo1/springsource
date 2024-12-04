@@ -52,4 +52,9 @@ public class MovieImageRepositoryTest {
         }
     }
 
+    @Test
+    public void testGetOldFile() {
+        List<MovieImage> oldList = movieImageRepository.findOldAll();
+        System.out.println(oldList);
+    }
 }

@@ -6,10 +6,14 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,12 +22,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.AuthMemberDto;
 import com.example.movie.dto.MemberDto;
+import com.example.movie.dto.MovieDto;
 import com.example.movie.dto.PageRequestDto;
 import com.example.movie.dto.PasswordDto;
 import com.example.movie.service.MemberService;
 
 import groovyjarjarantlr4.v4.parse.ANTLRParser.ruleAction_return;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,7 +85,7 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/edit/password")
     public String postPasswordUpdate(PasswordDto passwordDto, HttpSession session, RedirectAttributes rttr) {
-        log.info("비밀번호 수정", passwordDto);
+        log.info("비밀번호 수정 {}", passwordDto);
 
         // 서비스 호출
         try {
@@ -95,6 +101,58 @@ public class MemberController {
         session.invalidate();
         return "redirect:/member/profile";
 
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/leave")
+    public void getLeave(@ModelAttribute("requestDto") PageRequestDto pageRequestDto) {
+        log.info("회원 탈퇴 폼 요청");
+
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/leave")
+    public String postLeave(PasswordDto passwordDto, boolean check, HttpSession session, RedirectAttributes rttr) {
+        log.info("회원 탈퇴 요청 {}, {}", passwordDto, check);
+
+        if (!check) {
+            rttr.addFlashAttribute("error", "체크 표시를 확인해 주세요");
+            return "redirect:/member/leave";
+        }
+        // 서비스 작업
+        try {
+            memberService.leave(passwordDto);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rttr.addFlashAttribute("error", e.getMessage());
+            return "redirect:/member/leave";
+        }
+
+        session.invalidate();
+        return "redirect:/movie/list";
+    }
+
+    // 회원가입
+    @GetMapping("/register")
+    public void getRegister(MemberDto memberDto, @ModelAttribute("requestDto") PageRequestDto pageRequestDto) {
+        log.info("회원 가입 폼 요청");
+    }
+
+    @PostMapping("/register")
+    public String postRegister(@Valid MemberDto memberDto, BindingResult result, boolean check,
+            @ModelAttribute("requestDto") PageRequestDto pageRequestDto, Model model) {
+
+        log.info("회원가입 요청{}", memberDto);
+        if (result.hasErrors()) {
+            return "/member/register";
+        }
+        if (!check) {
+            model.addAttribute("check", "약관에 동의하셔야 합니다.");
+            return "/member/register"; // forward
+        }
+        memberService.register(memberDto);
+
+        return "redirect:/member/login";
     }
 
     // 개발자용 - Authentication 확인용
