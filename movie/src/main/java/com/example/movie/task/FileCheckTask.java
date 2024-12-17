@@ -31,15 +31,17 @@ public class FileCheckTask {
 
         LocalDate yesterday = LocalDate.now().minusDays(1);
         String result = yesterday.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
         return result.replace("-", File.separator);
     }
 
-    @Scheduled(cron = "0 * * * * * ")
+    // second,minute,hour,day of month,month,day of week
+    @Scheduled(cron = "0 * * * * *")
     public void checkFile() {
         log.info("file check 메소드 실행");
 
         // db에서 전일자 이미지 파일 목록 추출
-        List<MovieImage> oldMovieImages = movieImageRepository.findOldAll();
+        List<MovieImage> oldMovieImages = movieImageRepository.findOldFileAll();
         // entity => dto
         List<MovieImageDto> movieImageDtos = oldMovieImages.stream().map(movieImage -> {
             return MovieImageDto.builder()
@@ -50,8 +52,8 @@ public class FileCheckTask {
                     .build();
         }).collect(Collectors.toList());
 
-        // upload/2024/12/03/~~~~~_1.jpg
-        // upload/2024/12/03/s_~~~~~_1.jpg
+        // uplod/2024/12/03/~~~~~~_1.jpg
+        // uplod/2024/12/03/s_~~~~~~_1.jpg
 
         // 어제날짜의 파일 목록 추출
 

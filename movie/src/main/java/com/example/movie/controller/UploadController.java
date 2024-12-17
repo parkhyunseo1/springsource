@@ -101,7 +101,7 @@ public class UploadController {
         try {
             // "2024%2F11%2F27%5C7e9547c0-ba45-463b-a4ae-59a35d92962a_seoul1.jpg"
             String srcFileName = URLDecoder.decode(fileName, "utf-8");
-            // "upload/2024/11/27/C7e9547c0-ba45-463b-a4ae-59a35d92962a_seoul1.jpg"
+            // upload/2024/11/27/s_C7e9547c0-ba45-463b-a4ae-59a35d92962a_seoul1.jpg
             File file = new File(uploadPath + File.separator + srcFileName);
 
             if (size != null && size.equals("1")) {

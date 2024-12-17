@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.movie.dto.MovieDto;
@@ -33,7 +34,7 @@ public class MovieController {
 
     @GetMapping("/list")
     public void getList(@ModelAttribute("requestDto") PageRequestDto pageRequestDto, Model model) {
-        log.info("전체 movie list 요청");
+        log.info("전체 movie list 요청 {}", pageRequestDto);
 
         PageResultDto<MovieDto, Object[]> result = movieService.getList(pageRequestDto);
 
@@ -50,9 +51,9 @@ public class MovieController {
     }
 
     @PostMapping("/modify")
-    public String postModify(MovieDto movieDto,
-            @ModelAttribute("requestDto") PageRequestDto pageRequestDto,
+    public String postModify(MovieDto movieDto, @ModelAttribute("requestDto") PageRequestDto pageRequestDto,
             RedirectAttributes rttr) {
+
         log.info("영화 정보 수정 {}", movieDto);
 
         Long mno = movieService.modify(movieDto);
@@ -92,8 +93,6 @@ public class MovieController {
         log.info("영화등록 {}", movieDto);
 
         if (result.hasErrors()) {
-            log.info("errors", result.getFieldValue("title"));
-            log.info("errors", result.getAllErrors());
             return "/movie/create";
         }
 

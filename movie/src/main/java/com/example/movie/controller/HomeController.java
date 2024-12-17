@@ -28,7 +28,7 @@ public class HomeController {
     }
 
     @GetMapping("/error")
-    public String get404(@ModelAttribute("requestDto") PageRequestDto pageRequestDto) {
+    public String get404() {
         // 컨트롤러에 없는 경로 요청 시
         return "/except/url404";
     }

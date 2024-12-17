@@ -4,58 +4,9 @@
     <h2>Board Create</h2>
 
     <form th:action="@{/board/create}" method="post" th:object="${dto}">
-      <div class="mb-3">
-        <label for="title">Title</label>
-        <input
-          type="text"
-          name="title"
-          id="title"
-          class="form-control"
-          th:value="${dto.title}"
-        />
-        <div
-          th:if="${#fields.hasErrors('title')}"
-          th:errors="*{title}"
-          class="text-danger"
-        ></div>
-      </div>
-      <div class="mb-3">
-        <label for="content">Content</label>
-        <textarea
-          name="content"
-          id="content"
-          cols="30"
-          class="form-control"
-          th:text="${dto.content}"
-        ></textarea>
-        <div
-          th:if="${#fields.hasErrors('content')}"
-          th:errors="*{content}"
-          class="text-danger"
-        ></div>
-      </div>
-      <div class="mb-3">
-        <label for="writer">Writer</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          class="form-control"
-          th:value="${#authentication.principal.memberDto.name}"
-          readonly
-        />
-        <div
-          th:if="${#fields.hasErrors('writerEmail')}"
-          th:errors="*{writerEmail}"
-          class="text-danger"
-        ></div>
-      </div>
-      <input
-        type="hidden"
-        name="writerEmail"
-        th:value="${#authentication.principal.username}"
-      />
+      <div id="content"></div>
       <button class="btn btn-primary" type="submit">등록</button>
+
       <button class="btn btn-info" type="button">목록</button>
     </form>
 
@@ -68,6 +19,19 @@
     </form>
   </div>
   <th:block layout:fragment="script">
+    <script
+      src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"
+    ></script>
+    <script>
+      const editor = new toastui.Editor({
+        el: document.querySelector("#content"), // 에디터를 적용할 요소 (컨테이너)
+        height: "500px", // 에디터 영역의 높이 값 (OOOpx || auto)
+        initialEditType: "wysiwyg", // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
+        initialValue: "내용을 입력해 주세요.", // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+        previewStyle: "vertical", // 마크다운 프리뷰 스타일 (tab || vertical)
+      });
+    </script>
+
     <script>
       document.querySelector(".btn-info").addEventListener("click", () => {
         actionForm.submit();

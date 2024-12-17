@@ -19,6 +19,6 @@ public interface MovieImageRepository extends JpaRepository<MovieImage, Long>, M
 
     // 어제 날짜의 영화 이미지 리스트 가져오기
     // 추출 후 스케쥴러에서 사용할 예정(Entity 사용안함)
-    @Query(value = "SELECT * FROM MOVIE_IMAGE mi WHERE mi.PATH = TO_CHAR(SYSDATE-1,'yyyy/mm/dd')", nativeQuery = true)
-    List<MovieImage> findOldAll();
+    @Query(value = "SELECT * FROM MOVIE_IMAGE mi WHERE mi.PATH = to_char(sysdate-1,'yyyy/mm/dd')", nativeQuery = true)
+    List<MovieImage> findOldFileAll();
 }

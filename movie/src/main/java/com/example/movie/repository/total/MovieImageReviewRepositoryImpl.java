@@ -66,6 +66,7 @@ public class MovieImageReviewRepositoryImpl extends QuerydslRepositorySupport im
                 }
 
                 tuple.where(builder);
+
                 // Sort
                 Sort sort = pageable.getSort();
                 sort.stream().forEach(order -> {

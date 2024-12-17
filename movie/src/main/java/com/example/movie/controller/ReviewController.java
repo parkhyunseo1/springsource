@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.movie.dto.ReviewDto;
 import com.example.movie.service.ReviewService;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,7 +31,7 @@ public class ReviewController {
 
     // ~~ /reviews/45/all
     @GetMapping("/{mno}/all")
-    public List<ReviewDto> getList(@PathVariable("mno") Long mno) {
+    public List<ReviewDto> getList(@PathVariable Long mno) {
         log.info("리뷰 리스트 요청 {}", mno);
 
         List<ReviewDto> reviews = reviewService.getReviews(mno);
@@ -39,30 +39,31 @@ public class ReviewController {
         return reviews;
     }
 
-    // ~~/reviews/mno/reviewmno + @DeleteMapping
+    // ~~~/reviews/mno/reviewno + @DeleteMapping
     @PreAuthorize("authentication.name == #email")
     @DeleteMapping("/{mno}/{reviewNo}")
-    public Long deleteReview(@PathVariable Long reviewNo, String email) {
+    public Long deteteReview(@PathVariable Long reviewNo, String email) {
         log.info("리뷰 삭제 {}", reviewNo);
 
         reviewService.removeReview(reviewNo);
         return reviewNo;
     }
 
-    // ~~/reviews/mno/reviewmno + @GetMapping
+    // ~~/reviews/mno/reviewno + @GetMapping
     @GetMapping("/{mno}/{reviewNo}")
-    public ReviewDto getReview(@PathVariable Long reviewNo) {
-        log.info("리뷰 요청{}", reviewNo);
+    public ReviewDto getMethodName(@PathVariable Long reviewNo) {
+        log.info("리뷰 요청 {}", reviewNo);
 
         ReviewDto reviewDto = reviewService.getReview(reviewNo);
         return reviewDto;
     }
 
-    // ~~/reviews/mno/reviewmno + @PutMapping + ReviewDto
+    // ~~/reviews/mno/reviewno + @PutMapping + ReviewDto
     @PreAuthorize("authentication.name == #reviewDto.email")
     @PutMapping("/{mno}/{reviewNo}")
-    public Long putmodifyReview(@PathVariable Long reviewNo, @RequestBody ReviewDto reviewDto) {
-        log.info("리뷰 수정{}, {}", reviewNo, reviewDto);
+    public Long putReview(@PathVariable Long reviewNo, @RequestBody ReviewDto reviewDto) {
+        log.info("리뷰 수정 {}, {}", reviewNo, reviewDto);
+
         reviewDto.setReviewNo(reviewNo);
         reviewNo = reviewService.modifyReview(reviewDto);
 
@@ -70,12 +71,11 @@ public class ReviewController {
     }
 
     // ~~/reviews/mno/ + @PostMapping + ReviewDto
-
     @PostMapping("/{mno}")
-    public Long postMethodName(@RequestBody ReviewDto reviewDtos) {
-        log.info("리뷰작성{}", reviewDtos);
-        Long rno = reviewService.addReview(reviewDtos);
-        return rno;
+    public Long postReview(@RequestBody ReviewDto reviewDto) {
+        log.info("리뷰 등록 {}", reviewDto);
+
+        return reviewService.addReview(reviewDto);
     }
 
 }

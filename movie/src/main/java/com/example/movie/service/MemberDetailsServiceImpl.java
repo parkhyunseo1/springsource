@@ -26,13 +26,14 @@ import lombok.extern.log4j.Log4j2;
 public class MemberDetailsServiceImpl implements UserDetailsService, MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
     private final ReviewRepository reviewRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("service username : {}", username);
 
+        // 로그인 요청
         Optional<Member> result = memberRepository.findByEmail(username);
 
         if (!result.isPresent()) {
@@ -55,28 +56,29 @@ public class MemberDetailsServiceImpl implements UserDetailsService, MemberServi
 
     @Transactional
     @Override
-    public void nickNameUpdate(MemberDto memberDto) {
-        memberRepository.updateNickName(memberDto.getNickname(), memberDto.getEmail());
+    public void nickNickUpdate(MemberDto memberDto) {
 
+        memberRepository.updateNickName(memberDto.getNickname(), memberDto.getEmail());
     }
 
     @Override
     public void passwordUpdate(PasswordDto passwordDto) throws Exception {
-        // // email 을 이용해 사용자 찾기
+        // email 을 이용해 사용자 찾기
         // Optional<Member> result =
-        // memberRepository.findByEmail(passwordDto.getEamil());
+        // memberRepository.findByEmail(passwordDto.getEmail());
         // if (!result.isPresent()) throw new UsernameNotFoundException("이메일 확인");
+
         Member member = memberRepository.findByEmail(passwordDto.getEmail()).get();
-        // // 현재 비밀번호가 입력 비밀번호와 일치하는지 검증
+
+        // 현재 비밀번호(db에 저장된 값)가 입력 비밀번호(입력값)와 일치하는지 검증
         if (!passwordEncoder.matches(passwordDto.getCurrentPassword(), member.getPassword())) {
             // false : 되돌려 보내기
-            throw new Exception("현재 비밀번호를 확인");
+            throw new Exception("현재 비밀번호를 확인해 주세요");
         } else {
+            // true : 새 비밀번호로 수정
             member.setPassword(passwordEncoder.encode(passwordDto.getNewPassword()));
             memberRepository.save(member);
-            // true : 새 비밀번호로 수정
         }
-
     }
 
     @Transactional
@@ -86,9 +88,9 @@ public class MemberDetailsServiceImpl implements UserDetailsService, MemberServi
         Member member = memberRepository.findByEmail(passwordDto.getEmail()).get();
 
         if (!passwordEncoder.matches(passwordDto.getCurrentPassword(), member.getPassword())) {
-            // false : 되돌려 보내기
-            throw new Exception("현재 비밀번호를 확인");
+            throw new Exception("현재 비밀번호를 확인해 주세요");
         }
+
         // 리뷰삭제(리뷰를 작성한 멤버를 이용해서 삭제)
         reviewRepository.deleteByMember(member);
         // 회원삭제
@@ -101,7 +103,6 @@ public class MemberDetailsServiceImpl implements UserDetailsService, MemberServi
         member.setPassword(passwordEncoder.encode(member.getPassword()));
 
         return memberRepository.save(member).getNickname();
-
     }
 
 }

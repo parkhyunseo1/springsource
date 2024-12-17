@@ -1,18 +1,16 @@
 package com.example.movie.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import com.example.movie.dto.MemberDto;
 import com.example.movie.dto.PasswordDto;
 import com.example.movie.entity.Member;
 import com.example.movie.entity.constant.MemberRole;
 
-@Service
 public interface MemberService {
 
     // 닉네임 수정
-    void nickNameUpdate(MemberDto memberDto);
+    void nickNickUpdate(MemberDto memberDto);
 
     // 비밀번호 수정
     void passwordUpdate(PasswordDto passwordDto) throws Exception;
@@ -24,8 +22,7 @@ public interface MemberService {
     String register(MemberDto memberDto);
 
     default Member dtoToEntity(MemberDto memberDto) {
-        Member member = Member
-                .builder()
+        Member member = Member.builder()
                 .email(memberDto.getEmail())
                 .password(memberDto.getPassword())
                 .nickname(memberDto.getNickname())
@@ -34,9 +31,8 @@ public interface MemberService {
         return member;
     }
 
-    // default MemberDto dtoToEntity(Member member) {
-    // MemberDto memberDto = MemberDto
-    // .builder()
+    // default MemberDto entityToDto(Member member) {
+    // MemberDto memberDto = MemberDto.builder()
     // .mid(member.getMid())
     // .email(member.getEmail())
     // .password(member.getPassword())
@@ -44,4 +40,5 @@ public interface MemberService {
     // .role(MemberRole.MEMBER)
     // .build();
     // return memberDto;
+    // }
 }

@@ -1,5 +1,7 @@
 package com.example.movie.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -9,7 +11,6 @@ import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import com.example.movie.entity.Member;
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.Review;
-import java.util.List;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 

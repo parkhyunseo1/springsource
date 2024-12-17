@@ -23,8 +23,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewDto> getReviews(Long mno) {
         Movie movie = Movie.builder().mno(mno).build();
-        List<Review> list = reviewRepository.findByMovie(movie);
-        return list.stream().map(review -> entityToDto(review)).collect(Collectors.toList());
+        List<Review> result = reviewRepository.findByMovie(movie);
+
+        return result.stream().map(review -> entityToDto(review)).collect(Collectors.toList());
     }
 
     @Override
@@ -34,6 +35,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Long addReview(ReviewDto reviewDto) {
+
         Review review = dtoToEntity(reviewDto);
 
         return reviewRepository.save(review).getReviewNo();
@@ -45,7 +47,6 @@ public class ReviewServiceImpl implements ReviewService {
         Review review = reviewRepository.findById(reviewDto.getReviewNo()).get();
         review.setText(reviewDto.getText());
         review.setGrade(reviewDto.getGrade());
-
         return reviewRepository.save(review).getReviewNo();
     }
 

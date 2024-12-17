@@ -7,9 +7,8 @@ import com.example.movie.entity.Member;
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.Review;
 
-import groovyjarjarantlr4.v4.parse.ANTLRParser.range_return;
-
 public interface ReviewService {
+
     // movie 번호를 이용해 특정 영화의 모든 리뷰 조회
     List<ReviewDto> getReviews(Long mno);
 
@@ -23,7 +22,8 @@ public interface ReviewService {
     void removeReview(Long reviewNo);
 
     default ReviewDto entityToDto(Review review) {
-        ReviewDto reviewDto = ReviewDto.builder()
+        ReviewDto reviewDto = ReviewDto
+                .builder()
                 .reviewNo(review.getReviewNo())
                 .grade(review.getGrade())
                 .text(review.getText())
@@ -34,6 +34,7 @@ public interface ReviewService {
                 .regDate(review.getRegDate())
                 .updateDate(review.getUpdateDate())
                 .build();
+
         return reviewDto;
     }
 
@@ -46,5 +47,4 @@ public interface ReviewService {
                 .movie(Movie.builder().mno(reviewDto.getMno()).build())
                 .build();
     }
-
 }
